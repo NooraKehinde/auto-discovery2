@@ -1,0 +1,16 @@
+variable "domain" {}
+variable "jenkins-domain" {}
+variable "jenkins-dns_name" {}
+variable "jenkins-zone_id" {}
+variable "sonar-domain" {}
+variable "sonar-dns_name" {}
+variable "sonar-zone_id" {}
+variable "nexus-domain" {}
+variable "nexus-dns_name" {}
+variable "nexus-zone_id" {}
+variable "stage-domain" {}
+variable "stage-LB-dns_name" {}
+variable "stage-LB-zone_id" {}
+variable "prod-domain" {}
+variable "prod-LB-dns_name" {}
+variable "prod-LB-zone_id" {}
