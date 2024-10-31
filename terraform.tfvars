@@ -1,5 +1,5 @@
 all-cidr         = "0.0.0.0/0"
-redhat_ami       = "ami-07d1e0a32156d0d21"
+redhat_ami       = "ami-0574a94188d1b84a1"
 instance_type    = "t2.medium"
 cidr             = "10.0.0.0/16"
 public_subnet_1  = "10.0.1.0/24"

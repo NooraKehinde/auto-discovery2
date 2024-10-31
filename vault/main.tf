@@ -1,36 +1,29 @@
 provider "aws" {
   region = "eu-west-3"
-  profile = "lead"
-
-  default_tags {
-    tags = {
-    environment = "dev"
-    project = "auto-descovery"
-    }
-  }
 }
 terraform {
   backend "s3" {
-    bucket         = "euteam20s3bk"
-    dynamodb_table = "euteam20db"
+    bucket         = "auto-discovery-s3"
+    dynamodb_table = "discovery-db"
     key = "vault/terraform.tfstate"
     encrypt = true
-    region = "eu-west-2"
-    profile = "lead"
+    region = "eu-west-3"
   }
 }
 locals {
-  name = "set-20"
+  name = "auto-discovery"
 }
 
 resource "aws_instance" "vault_server" {
   ami           = var.ubuntu
+  subnet_id     = "subnet-038125d7efe2cd0e0"
   instance_type = "t2.medium"
   iam_instance_profile = aws_iam_instance_profile.vault_profile.id
   key_name               = aws_key_pair.public_key.id
+  associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.vault-sg.id]
   user_data              = templatefile("./vault_script.sh", {
-    var1 = "eu-west-2"
+    var1 = "eu-west-3"
     var2 = aws_kms_key.vault_kms.id
   })
   # provisioner "local-exec" {
@@ -167,7 +160,7 @@ resource "aws_acm_certificate_validation" "cert-validation" {
 resource "aws_elb" "elb-vault" {
   name            = "elb-vault"
   security_groups = [aws_security_group.vault-sg.id]
-  availability_zones = [ "eu-west-3a", "eu-west-3b" ]
+  subnets         = ["subnet-038125d7efe2cd0e0", "subnet-0bc8d6b9cc82b0333"]
 
   listener {
     instance_port      = 8200

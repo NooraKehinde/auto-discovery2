@@ -5,7 +5,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
-
+vault-private-key 
 # Crash log files
 crash.log
 crash.*.log

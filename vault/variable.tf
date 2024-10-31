@@ -1,5 +1,5 @@
 variable "ubuntu" {
-  default = "ami-04a92520784b93e73"
+  default = "ami-045a8ab02aadf4f88"
 }
 variable "vault_server_name" {
   default = "vault_server"
@@ -11,8 +11,8 @@ variable "vault_sg" {
   default = "vault_sg"
 }
 variable "domain" {
-  default = "hullerdata.com"
+  default = "noektech.com"
 }
 variable "vault-domain" {
-  default = "vault.hullerdata.com"
+  default = "vault.noektech.com"
 }

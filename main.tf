@@ -1,11 +1,13 @@
 locals {
   name = "pet-auto"
 }
+
 data "aws_acm_certificate" "acm-ssl" {
-  domain      = "hullerdata.com"
-  types       = ["AMAZON_ISSUED"]
+  domain      = "noektech.com"
+  types    = ["AMAZON_ISSUED"]
   most_recent = true
 }
+
 
 module "vpc" {
   source           = "./module/vpc"
@@ -115,22 +117,22 @@ module "RDS" {
 #  path = "secret/database"
 # }
 
-module "acm" {
-  source            = "./module/acm"
-  domain            = "hullerdata.com"
-  jenkins-domain    = "jenkins.hullerdata.com"
+module "route53" {
+  source            = "./module/route53"
+  domain            = "www.noektech.com"
+  jenkins-domain    = "jenkins.noektech.com"
   jenkins-dns_name  = module.jenkins.jenkins-dns
   jenkins-zone_id   = module.jenkins.jenkins_zone_id
-  sonar-domain      = "sonar.hullerdata.com"
+  sonar-domain      = "sonar.noektech.com"
   sonar-dns_name    = module.sonarqube.sonarqube-dns
   sonar-zone_id     = module.sonarqube.sonarqube_zone_id
-  nexus-domain      = "nexus.hullerdata.com"
+  nexus-domain      = "nexus.noektech.com"
   nexus-dns_name    = module.nexus.nexus-dns
   nexus-zone_id     = module.nexus.nexus_zone_id
-  stage-domain      = "stage.hullerdata.com"
+  stage-domain      = "stage.noektech.com"
   stage-LB-dns_name = module.stage-alb.stage-dns
   stage-LB-zone_id  = module.stage-alb.stage-zone-id
-  prod-domain       = "prod.hullerdata.com"
+  prod-domain       = "prod.noektech.com"
   prod-LB-dns_name  = module.prod-alb.prod-dns
   prod-LB-zone_id   = module.prod-alb.prod-zone-id
 }

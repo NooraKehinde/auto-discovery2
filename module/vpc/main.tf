@@ -17,7 +17,7 @@ resource "aws_vpc" "vpc" {
 resource "aws_subnet" "pub_sub1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.public_subnet_1
-  availability_zone = var.avz1 #"eu-west-2a"
+  availability_zone = var.avz1 #"eu-west-3a"
 
   tags = {
     Name = "${local.name}-pub_sub1"
@@ -28,7 +28,7 @@ resource "aws_subnet" "pub_sub1" {
 resource "aws_subnet" "pub_sub2" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.public_subnet_2
-  availability_zone = var.avz2 #"eu-west-2b"
+  availability_zone = var.avz2 #"eu-west-3b"
 
   tags = {
     Name = "${local.name}-pub_sub2"
@@ -39,7 +39,7 @@ resource "aws_subnet" "pub_sub2" {
 resource "aws_subnet" "pri_sub1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.private_subnet_1
-  availability_zone = var.avz1 #"eu-west-2a"
+  availability_zone = var.avz1 #"eu-west-3a"
 
   tags = {
     Name = "${local.name}-pri_sub1"
@@ -50,7 +50,7 @@ resource "aws_subnet" "pri_sub1" {
 resource "aws_subnet" "pri_sub2" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.private_subnet_2
-  availability_zone = var.avz2 #"eu-west-2b"
+  availability_zone = var.avz2 #"eu-west-3b"
 
   tags = {
     Name = "${local.name}-pri_sub2"
