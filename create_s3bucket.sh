@@ -1,7 +1,3 @@
-# Run each of the below commands to provision s3 and dynamodb table via aws cli
-# Run lines individually on terminal or by running "sh create_remote_state.sh" command
-
-
 # Set variables
 BUCKET_NAME="auto-discovery-s3"
 DYNAMODB_TABLE_NAME="discovery-db"
