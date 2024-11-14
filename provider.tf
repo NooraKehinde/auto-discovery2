@@ -1,9 +1,9 @@
 provider "aws" {
-  region  = "eu-west-3"
+  region = "eu-west-3"
 }
 
 provider "vault" {
-  token   = "s.fIQ2DFX7ueQ6fYvwXRZyY9iw"
+  token   = "s.mDSTktHtyKhdTdxhBZb5k6bY"
   address = "https://vault.noektech.com"
 }
 
@@ -11,9 +11,9 @@ terraform {
   backend "s3" {
     bucket         = "auto-discovery-s3"
     dynamodb_table = "discovery-db"
-    key = "infrastructure/terraform.tfstate"
-    encrypt = true
-    region = "eu-west-3"
-    profile = "default"
+    key            = "infrastructure/terraform.tfstate"
+    encrypt        = true
+    region         = "eu-west-3"
+    profile        = "default"
   }
 }

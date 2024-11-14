@@ -5,9 +5,9 @@ terraform {
   backend "s3" {
     bucket         = "auto-discovery-s3"
     dynamodb_table = "discovery-db"
-    key = "vault/terraform.tfstate"
-    encrypt = true
-    region = "eu-west-3"
+    key            = "vault/terraform.tfstate"
+    encrypt        = true
+    region         = "eu-west-3"
   }
 }
 locals {
@@ -15,14 +15,14 @@ locals {
 }
 
 resource "aws_instance" "vault_server" {
-  ami           = var.ubuntu
-  subnet_id     = "subnet-038125d7efe2cd0e0"
-  instance_type = "t2.medium"
-  iam_instance_profile = aws_iam_instance_profile.vault_profile.id
-  key_name               = aws_key_pair.public_key.id
+  ami                         = var.ubuntu
+  subnet_id                   = "subnet-038125d7efe2cd0e0"
+  instance_type               = "t2.medium"
+  iam_instance_profile        = aws_iam_instance_profile.vault_profile.id
+  key_name                    = aws_key_pair.public_key.id
   associate_public_ip_address = true
-  vpc_security_group_ids = [aws_security_group.vault-sg.id]
-  user_data              = templatefile("./vault_script.sh", {
+  vpc_security_group_ids      = [aws_security_group.vault-sg.id]
+  user_data = templatefile("./vault_script.sh", {
     var1 = "eu-west-3"
     var2 = aws_kms_key.vault_kms.id
   })
@@ -63,7 +63,7 @@ resource "aws_security_group" "vault-sg" {
     from_port   = 8200
     to_port     = 8200
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  
+    cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
     description = "https port"

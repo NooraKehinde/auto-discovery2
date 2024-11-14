@@ -48,7 +48,7 @@ resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
 }
 
 resource "aws_iam_role_policy_attachment" "s3-attach" {
-  role     = aws_iam_role.vault_role.id
+  role       = aws_iam_role.vault_role.id
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 resource "aws_iam_instance_profile" "vault_profile" {

@@ -1,0 +1,13 @@
+variable "ubuntu_ami" {}
+variable "instance_type" {}
+variable "subnet_id" {}
+variable "pub_key_name" {}
+variable "sonar_name" {}
+variable "sonar-subnets" {}
+variable "ssl-cert" {}
+variable "nc-account-id" {}
+variable "nc-api-id" {}
+variable "vpc-id" {}
+variable "name" {}
+variable "sonar-domain" {}
+variable "domain" {}
