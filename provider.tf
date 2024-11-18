@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 provider "vault" {
-  token   = "s.mDSTktHtyKhdTdxhBZb5k6bY"
+  token   = "s.6znLEnpTEK6KtFjWUgxuyBey"
   address = "https://vault.noektech.com"
 }
 

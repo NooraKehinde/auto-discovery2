@@ -24,8 +24,8 @@ module "vpc" {
   private_subnet_2 = "10.0.4.0/24"
   avz1             = "eu-west-3a"
   avz2             = "eu-west-3b"
+  name             = local.name
 }
-
 
 module "RDS" {
 source        = "./module/rds-server"
@@ -58,3 +58,20 @@ module "sonarqube" {
   sonar-domain  = "sonarqube.noektech.com"
   domain        = "noektech.com"
 }
+
+module "nexus" {
+  source         = "./module/nexus"
+  redhat_ami     = "ami-0574a94188d1b84a1"  
+  instance_type  = "t2.medium"
+  ssl_cert       = data.aws_acm_certificate.acm-ssl.arn   
+  nexus_name     = "${local.name}-nexus"
+  nc_account_id  = "4665859"
+  nc_api_id      = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  vpc_id         = module.vpc.vpc_id
+  name           = local.name
+  nexus_domain   = "nexus.noektech.com"
+  domain         = "noektech.com"
+  nexus_subnets  = [module.vpc.pub_sub1, module.vpc.pub_sub2] 
+  pub_key_name   = module.keypair.public_key_id  
+  subnet_id      = module.vpc.pub_sub1
+} 

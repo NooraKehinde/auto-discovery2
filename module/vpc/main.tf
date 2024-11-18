@@ -10,7 +10,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
 
   tags = {
-    Name = "${local.name}-vpc"
+    Name = "${var.name}-vpc"
   }
 }
 # create public subnet 1
@@ -20,7 +20,7 @@ resource "aws_subnet" "pub_sub1" {
   availability_zone = var.avz1 #"eu-west-3a"
 
   tags = {
-    Name = "${local.name}-pub_sub1"
+    Name = "${var.name}-pub_sub1"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "pub_sub2" {
   availability_zone = var.avz2 #"eu-west-3b"
 
   tags = {
-    Name = "${local.name}-pub_sub2"
+    Name = "${var.name}-pub_sub2"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "pri_sub1" {
   availability_zone = var.avz1 #"eu-west-3a"
 
   tags = {
-    Name = "${local.name}-pri_sub1"
+    Name = "${var.name}-pri_sub1"
   }
 }
 
@@ -53,7 +53,7 @@ resource "aws_subnet" "pri_sub2" {
   availability_zone = var.avz2 #"eu-west-3b"
 
   tags = {
-    Name = "${local.name}-pri_sub2"
+    Name = "${var.name}-pri_sub2"
   }
 }
 
@@ -62,7 +62,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "${local.name}-igw"
+    Name = "${var.name}-igw"
   }
 }
 
@@ -71,7 +71,7 @@ resource "aws_eip" "eip" {
   domain = "vpc"
 
   tags = {
-    Name = "${local.name}-eip"
+    Name = "${var.name}-eip"
   }
 }
 
@@ -81,7 +81,7 @@ resource "aws_nat_gateway" "ngw" {
   subnet_id     = aws_subnet.pub_sub1.id
 
   tags = {
-    Name = "${local.name}-ngw"
+    Name = "${var.name}-ngw"
   }
 }
 
@@ -94,7 +94,7 @@ resource "aws_route_table" "pub_rt" {
     gateway_id = aws_internet_gateway.igw.id
   }
   tags = {
-    Name = "${local.name}-pub_rt"
+    Name = "${var.name}-pub_rt"
   }
 }
 
@@ -106,7 +106,7 @@ resource "aws_route_table" "pri_rt" {
     gateway_id = aws_nat_gateway.ngw.id
   }
   tags = {
-    Name = "${local.name}-pri_rt"
+    Name = "${var.name}-pri_rt"
   }
 }
 
