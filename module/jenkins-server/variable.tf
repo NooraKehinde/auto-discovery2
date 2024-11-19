@@ -1,0 +1,14 @@
+variable "redhat_ami" {}
+variable "instance_type" {}
+variable "pub_key_name" {}
+variable "jenkins_name" {}
+variable "nexus_ip" {}
+variable "jenkins_subnets" {}
+variable "ssl_cert" {}
+variable "jenkins_domain" {}
+variable "vpc_id" {}
+variable "domain" {}
+variable "name" {}
+variable "nr_account_id" {}
+variable "nr_key" {}
+variable "subnet_id" {}

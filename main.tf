@@ -75,3 +75,21 @@ module "nexus" {
   pub_key_name   = module.keypair.public_key_id  
   subnet_id      = module.vpc.pub_sub1
 } 
+
+module "jenkins" {
+  source          = "./module/jenkins-server"
+  redhat_ami      = "ami-0574a94188d1b84a1"
+  instance_type   = "t2.medium"
+  ssl_cert        = data.aws_acm_certificate.acm-ssl.arn
+  jenkins_name    = "${local.name}-jenkins"
+  pub_key_name    = module.keypair.public_key_id
+  nexus_ip        = module.nexus.nexus_ip
+  jenkins_subnets = [module.vpc.pub_sub1, module.vpc.pub_sub1]
+  subnet_id       = module.vpc.pub_sub1
+  nr_key          = "4665859"
+  nr_account_id   = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  vpc_id          = module.vpc.vpc_id
+  name            = local.name
+  jenkins_domain  = "jenkins.noektech.com"
+  domain          = "noektech.com"
+}

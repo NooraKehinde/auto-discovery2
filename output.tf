@@ -7,3 +7,6 @@ output "vpc_id" {
 output "nexus" {
   value = module.nexus.nexus_ip
 }
+output "jenkins" {
+  value = module.jenkins.jenkins_ip
+}
