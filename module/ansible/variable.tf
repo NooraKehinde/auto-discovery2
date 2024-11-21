@@ -1,0 +1,15 @@
+variable "ami_redhat" {}
+variable "instance_type" {}
+variable "pub_key_name" {}
+variable "vpc_id" {}
+variable "name" {}
+variable "subnet_id" {}
+variable "keypair" {}
+variable "stage-playbook" {}
+variable "prod-playbook" {}
+variable "prod-discovery" {}
+variable "stage-discovery" {}
+variable "privatekey" {}
+variable "nc-api-id" {}
+variable "nexus-ip" {}
+variable "nc-account-id" {}

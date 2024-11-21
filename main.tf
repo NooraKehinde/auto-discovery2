@@ -93,3 +93,32 @@ module "jenkins" {
   jenkins_domain  = "jenkins.noektech.com"
   domain          = "noektech.com"
 }
+
+module "ansible" {
+  source          = "./module/ansible"
+  ami_redhat      = "ami-0574a94188d1b84a1"
+  instance_type   = "t2.medium"
+  subnet_id       = module.vpc.pri_sub1
+  stage-playbook  = "${path.root}/module/ansible/stage-playbook.yml"
+  prod-playbook   = "${path.root}/module/ansible/prod-playbook.yml"
+  prod-discovery  = "${path.root}/module/ansible/prod-discovery.sh"
+  stage-discovery = "${path.root}/module/ansible/stage-discovery.sh"
+  privatekey      = module.keypair.private_key_pem
+  keypair         = module.keypair.public_key_id
+  nc-account-id   = "4665859"
+  nc-api-id       = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  name            = "${local.name}-ansible"
+  vpc_id          = module.vpc.vpc_id
+  pub_key_name    = module.keypair.public_key_id
+  nexus-ip        = module.nexus.nexus_ip
+}
+
+module "bastion" {
+  source          = "./module/bastion"
+  redhat_ami      = "ami-0574a94188d1b84a1"
+  pub_key_name    = module.keypair.public_key_id
+  subnet_id       = module.vpc.pub_sub1
+  vpc_id          = module.vpc.vpc_id
+  name            = local.name
+  prv_key         = module.keypair.private_key_pem
+}

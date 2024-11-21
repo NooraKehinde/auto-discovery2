@@ -1,0 +1,70 @@
+---
+- name: Deploy application to Production
+  hosts: webservers
+  become: true
+  vars_files:
+    - ansible_vars_file.yml
+  vars:
+    app_name: appContainer
+    docker_image: "{{ NEXUS_IP }}/petclinicapps"
+    container_name: appContainer
+    app_port: 8080
+    restart_policy: always
+
+  tasks:
+    - name: Ensure Docker is installed
+      package:
+        name: docker-ce
+        state: present
+
+    - name: Stop container if it exists
+      docker_container:
+        name: "{{ container_name }}"
+        state: stopped
+      ignore_errors: yes
+
+    - name: Remove existing container if it exists
+      docker_container:
+        name: "{{ container_name }}"
+        state: absent
+      ignore_errors: yes
+
+    - name: Login to our docker nexus repo    
+      docker_login:
+        username: admin
+        password: admin123
+        registry: "{{ NEXUS_IP }}"
+
+    - name: Pull Docker image
+      docker_image:
+        name: "{{ docker_image }}"
+        source: pull
+
+    - name: Create and start the Docker container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ docker_image }}"
+        state: started
+        restart_policy: "{{ restart_policy }}"
+        ports:
+          - "{{ app_port }}:8080"
+        detach: true
+
+
+    - name: Verify the container is running
+      docker_container_info:
+        name: "{{ container_name }}"
+      register: container_info
+
+    - name: Check the health status of the container
+      assert:
+        that:
+          - container_info.container.State.Health.Status == "healthy"
+        fail_msg: "The container is not healthy"
+        success_msg: "The container is healthy and running"
+
+    - name: Clean up old images
+      docker_image:
+        name: "{{ docker_image }}"
+        state: absent
+        force_absent: yes
