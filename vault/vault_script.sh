@@ -112,4 +112,3 @@ vault kv put secret/database username=petclinic password=petclinic
 sudo hostnamectl set-hostname Vault
 #Installing newrelic
 curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY="NRAK-81TCYY878G65T6NFF8468N8J4W1" NEW_RELIC_ACCOUNT_ID="4665859" NEW_RELIC_REGION=EU /usr/local/bin/newrelic install -y
-

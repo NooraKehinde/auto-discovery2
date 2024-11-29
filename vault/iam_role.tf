@@ -55,4 +55,3 @@ resource "aws_iam_instance_profile" "vault_profile" {
   name = "ec2-instance-profile2"
   role = aws_iam_role.vault_role.name
 }
-

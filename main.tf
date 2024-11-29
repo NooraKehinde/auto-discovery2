@@ -122,3 +122,39 @@ module "bastion" {
   name            = local.name
   prv_key         = module.keypair.private_key_pem
 }
+
+module "asg-prod" {
+  source              = "./module/prod-asg"
+  key_pair            = module.keypair.public_key_id
+  ami-prd             = "ami-0574a94188d1b84a1"
+  nexus-ip            = module.nexus.nexus_ip
+  nr-key              = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  nr-acc-id           = "4665859"
+  vpc_zone_identifier = [module.vpc.pri_sub1, module.vpc.pri_sub2]
+  vpc                 = module.vpc.vpc_id
+  prod-subnet         = [module.vpc.pub_sub1, module.vpc.pub_sub2]
+  ssl-cert            = data.aws_acm_certificate.acm-ssl.arn
+  prod-asg-name       = "${local.name}-prod-asg"
+  prod-lt             = "${local.name}-prod-lt"
+  prod-asg-policy     = "${local.name}-prod-asg-policy"
+  prod-tg             = "${local.name}-prod-tg"
+  prod-alb            = "${local.name}-prod-alb"
+}
+
+module "asg-stage" {
+  source              = "./module/stage-asg"
+  key_pair            = module.keypair.public_key_id
+  ami-stg             = "ami-0574a94188d1b84a1"
+  nexus-ip            = module.nexus.nexus_ip
+  nr-key              = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  nr-acc-id           = "4665859"
+  vpc_zone_identifier = [module.vpc.pri_sub1, module.vpc.pri_sub2]
+  vpc                 = module.vpc.vpc_id
+  stage-subnet        = [module.vpc.pub_sub1, module.vpc.pub_sub2]
+  ssl-cert            = data.aws_acm_certificate.acm-ssl.arn
+  stage-asg-name      = "${local.name}-stage-asg"
+  stage-lt            = "${local.name}-stage-lt"
+  stage-asg-policy    = "${local.name}-stage-asg-policy"
+  stage-tg            = "${local.name}-stage-tg"
+  stage-alb           = "${local.name}-stage-alb"
+}

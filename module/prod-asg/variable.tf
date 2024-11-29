@@ -1,0 +1,14 @@
+variable "ami-prd" {}
+variable "key_pair" {}
+variable "nexus-ip" {}
+variable "nr-key" {}
+variable "nr-acc-id" {}
+variable "vpc_zone_identifier" {}
+variable "vpc" {}
+variable "prod-subnet" {}
+variable "ssl-cert" {}
+variable "prod-asg-name" {}
+variable "prod-lt" {}
+variable "prod-asg-policy" {}
+variable "prod-tg" {}
+variable "prod-alb" {}

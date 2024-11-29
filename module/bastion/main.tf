@@ -38,4 +38,3 @@ resource "aws_security_group" "bastion_sg" {
   }
 }
 
-

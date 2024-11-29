@@ -134,6 +134,3 @@ resource "aws_route_table_association" "ass-private_subnet_2" {
   route_table_id = aws_route_table.pri_rt.id
 }
 
-
-
-
