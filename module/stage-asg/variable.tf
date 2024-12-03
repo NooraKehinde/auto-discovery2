@@ -12,4 +12,4 @@ variable "stage-lt" {}
 variable "stage-asg-policy" {}
 variable "stage-tg" {}
 variable "stage-alb" {}
-
+variable "name" {}

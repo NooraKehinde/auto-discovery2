@@ -139,6 +139,7 @@ module "asg-prod" {
   prod-asg-policy     = "${local.name}-prod-asg-policy"
   prod-tg             = "${local.name}-prod-tg"
   prod-alb            = "${local.name}-prod-alb"
+  name                = local.name
 }
 
 module "asg-stage" {
@@ -157,4 +158,5 @@ module "asg-stage" {
   stage-asg-policy    = "${local.name}-stage-asg-policy"
   stage-tg            = "${local.name}-stage-tg"
   stage-alb           = "${local.name}-stage-alb"
+  name                = local.name
 }

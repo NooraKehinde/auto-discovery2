@@ -12,3 +12,4 @@ variable "prod-lt" {}
 variable "prod-asg-policy" {}
 variable "prod-tg" {}
 variable "prod-alb" {}
+variable "name" {}
