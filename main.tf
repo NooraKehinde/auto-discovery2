@@ -51,8 +51,8 @@ module "sonarqube" {
   sonar-subnets = [module.vpc.pub_sub1, module.vpc.pub_sub1]
   ssl-cert      = data.aws_acm_certificate.acm-ssl.arn
   sonar_name    = "${local.name}-sonar"
-  nc-account-id = "4665859"
-  nc-api-id     = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  nc-account-id = "6251063"
+  nc-api-id     = "NRAK-Y2YRZ80EJ4MJQB35QDGP3QOV5XI"
   vpc-id        = module.vpc.vpc_id
   name          = local.name
   sonar-domain  = "sonarqube.noektech.com"
@@ -65,8 +65,8 @@ module "nexus" {
   instance_type  = "t2.medium"
   ssl_cert       = data.aws_acm_certificate.acm-ssl.arn   
   nexus_name     = "${local.name}-nexus"
-  nc_account_id  = "4665859"
-  nc_api_id      = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  nc_account_id  = "6251063"
+  nc_api_id      = "NRAK-Y2YRZ80EJ4MJQB35QDGP3QOV5XI"
   vpc_id         = module.vpc.vpc_id
   name           = local.name
   nexus_domain   = "nexus.noektech.com"
@@ -86,8 +86,8 @@ module "jenkins" {
   nexus_ip        = module.nexus.nexus_ip
   jenkins_subnets = [module.vpc.pub_sub1, module.vpc.pub_sub1]
   subnet_id       = module.vpc.pub_sub1
-  nr_key          = "4665859"
-  nr_account_id   = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  nr_key          = "6251063"
+  nr_account_id   = "NRAK-Y2YRZ80EJ4MJQB35QDGP3QOV5XI"
   vpc_id          = module.vpc.vpc_id
   name            = local.name
   jenkins_domain  = "jenkins.noektech.com"
@@ -105,8 +105,8 @@ module "ansible" {
   stage-discovery = "${path.root}/module/ansible/stage-discovery.sh"
   privatekey      = module.keypair.private_key_pem
   keypair         = module.keypair.public_key_id
-  nc-account-id   = "4665859"
-  nc-api-id       = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
+  nc-account-id   = "6251063"
+  nc-api-id       = "NRAK-Y2YRZ80EJ4MJQB35QDGP3QOV5XI"
   name            = "${local.name}-ansible"
   vpc_id          = module.vpc.vpc_id
   pub_key_name    = module.keypair.public_key_id
@@ -128,8 +128,8 @@ module "asg-prod" {
   key_pair            = module.keypair.public_key_id
   ami-prd             = "ami-0574a94188d1b84a1"
   nexus-ip            = module.nexus.nexus_ip
-  nr-key              = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
-  nr-acc-id           = "4665859"
+  nr-key              = "NRAK-Y2YRZ80EJ4MJQB35QDGP3QOV5XI"
+  nr-acc-id           = "6251063"
   vpc_zone_identifier = [module.vpc.pri_sub1, module.vpc.pri_sub2]
   vpc                 = module.vpc.vpc_id
   prod-subnet         = [module.vpc.pub_sub1, module.vpc.pub_sub2]
@@ -147,8 +147,8 @@ module "asg-stage" {
   key_pair            = module.keypair.public_key_id
   ami-stg             = "ami-0574a94188d1b84a1"
   nexus-ip            = module.nexus.nexus_ip
-  nr-key              = "NRAK-81TCYY878G65T6NFF8468N8J4W1"
-  nr-acc-id           = "4665859"
+  nr-key              = "NRAK-Y2YRZ80EJ4MJQB35QDGP3QOV5XI"
+  nr-acc-id           = "6251063"
   vpc_zone_identifier = [module.vpc.pri_sub1, module.vpc.pri_sub2]
   vpc                 = module.vpc.vpc_id
   stage-subnet        = [module.vpc.pub_sub1, module.vpc.pub_sub2]
