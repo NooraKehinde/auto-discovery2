@@ -62,7 +62,7 @@ module "sonarqube" {
 module "nexus" {
   source         = "./module/nexus"
   redhat_ami     = "ami-0574a94188d1b84a1"  
-  instance_type  = "t2.medium"
+  instance_type  = "t2.large"
   ssl_cert       = data.aws_acm_certificate.acm-ssl.arn   
   nexus_name     = "${local.name}-nexus"
   nc_account_id  = "6251063"
@@ -79,7 +79,7 @@ module "nexus" {
 module "jenkins" {
   source          = "./module/jenkins-server"
   redhat_ami      = "ami-0574a94188d1b84a1"
-  instance_type   = "t2.medium"
+  instance_type   = "t2.large"
   ssl_cert        = data.aws_acm_certificate.acm-ssl.arn
   jenkins_name    = "${local.name}-jenkins"
   pub_key_name    = module.keypair.public_key_id
@@ -99,8 +99,6 @@ module "ansible" {
   ami_redhat      = "ami-0574a94188d1b84a1"
   instance_type   = "t2.medium"
   subnet_id       = module.vpc.pri_sub1
-  stage-playbook  = "${path.root}/module/ansible/stage-playbook.yml"
-  prod-playbook   = "${path.root}/module/ansible/prod-playbook.yml"
   prod-discovery  = "${path.root}/module/ansible/prod-discovery.sh"
   stage-discovery = "${path.root}/module/ansible/stage-discovery.sh"
   privatekey      = module.keypair.private_key_pem
@@ -111,6 +109,7 @@ module "ansible" {
   vpc_id          = module.vpc.vpc_id
   pub_key_name    = module.keypair.public_key_id
   nexus-ip        = module.nexus.nexus_ip
+  deployment-playbook = "${path.root}/module/ansible/deployment.yml"
 }
 
 module "bastion" {

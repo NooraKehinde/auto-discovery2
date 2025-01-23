@@ -149,3 +149,21 @@ resource "aws_security_group" "prod_asg_sg" {
     Name = "${var.name}-prod-asg-sg"
   }
 }
+
+#creating A sonar record
+resource "aws_route53_record" "prod-record" {
+  zone_id = data.aws_route53_zone.pet-zone.zone_id
+  name    = "prod.noektech.com"
+  type    = "A"
+  alias {
+    name                   = aws_lb.prod-alb.dns_name
+    zone_id                = aws_lb.prod-alb.zone_id
+    evaluate_target_health = true
+  }
+}
+
+#creating route53 hosted zone
+data "aws_route53_zone" "pet-zone" {
+  name         = "noektech.com"
+  private_zone = false
+}

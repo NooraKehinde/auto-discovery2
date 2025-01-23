@@ -14,7 +14,7 @@ sudo bash -c 'echo "StrictHostKeyChecking No" >> /etc/ssh/ssh_config'
 # Configure our CLI
 sudo su -c "aws configure set aws_access_key_id ${aws_iam_access_key.ansible-user-key.id}" ec2-user
 sudo su -c "aws configure set aws_secret_access_key ${aws_iam_access_key.ansible-user-key.secret}" ec2-user
-sudo su -c "aws configure set default.region eu-west-2" ec2-user
+sudo su -c "aws configure set default.region eu-west-3" ec2-user
 sudo su -c "aws configure set default.output text" ec2-user
 
 # Set Access_keys as ENV Variables
@@ -27,11 +27,10 @@ sudo yum update -y
 
  
 # copy files to ansible server
-sudo echo "${file(var.stage-playbook)}" >> /etc/ansible/stage-playbook.yml
-sudo echo "${file(var.prod-playbook)}" >> /etc/ansible/prod-playbook.yml
 sudo echo "${file(var.stage-discovery)}" >> /etc/ansible/stage-bash-script.sh
 sudo echo "${file(var.prod-discovery)}" >> /etc/ansible/prod-bash-script.sh
 sudo echo "${var.privatekey}" >> /home/ec2-user/.ssh/id_rsa
+sudo echo "${file(var.deployment-playbook)}" >> /etc/ansible/deployment.yml
 sudo bash -c 'echo "NEXUS_IP: ${var.nexus-ip}:8085" > /etc/ansible/ansible_vars_file.yml'
 
 #given right permission to files
@@ -41,7 +40,7 @@ sudo chmod 755 /etc/ansible/prod-bash-script.sh
 
 # setting up crontab for discovery tab
 echo "* * * * * ec2-user sh /etc/ansible/stage-bash-script.sh" > /etc/crontab
-echo "* * * * * ec2-user sh /etc/ansible/prod-bash-script.sh" > /etc/crontab
+echo "* * * * * ec2-user sh /etc/ansible/prod-bash-script.sh" >> /etc/crontab
 
 curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=NRAK-Q0BENBGYGRKFNMP7E3OITASI0K7 NEW_RELIC_ACCOUNT_ID=3589922 NEW_RELIC_REGION=EU /usr/local/bin/newrelic install -ycurl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=${var.nc-api-id} NEW_RELIC_ACCOUNT_ID=${var.nc-account-id} NEW_RELIC_REGION=EU /usr/local/bin/newrelic install -y
 sudo hostnamectl set-hostname ansible-server
