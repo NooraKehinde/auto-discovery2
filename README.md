@@ -1,16 +1,15 @@
-End-to-End Auto-Discovery Project
+## End-to-End Auto-Discovery Project
 
 
-Project Overview and Tech Stack used
+## Project Overview and Tech Stack used
 
 The aim of this project was to deploy a highly available, self-healing, scalable, and secured containerized Java application using a Jenkins pipeline and AWS. The tech stack used for this project is 1. Terraform to set up infrastructure as code. Modules was used in this project to keep the code maintainable, reusable and simple to comprehend, 2. AWS cloud environment where the application was deployed in, 3. Git, which is a version control tool, 4. Bastion host to ssh into the resources, 5. Jenkins as a CI/CD tool, 6. Ansible as a configuration and application deployment tool, 7. Sonarqube for code analysis and coverage, 8. Docker as the containerization tool, 9. S3 bucket to store the Terraform statefile, 10. DynamoDP  to lock the statefile, 11. Hashicorp Vault to securely manage database credentials, 12.Newrelic as a monitoring tool, 13. Nexus repository as an artifact storage and a docker hub, 14. Auto Scaling Group to launch instances from the staging environment to the production environment and 14. Slack for communication and receiving notifications, 16. Trivy, a container vulnerability scanner to help to ensure that the Docker containers used by Jenkins are free of known security vulnerabilities.
 
-
 Architectural Diagram
-![Architectural Diagram](<1. Architectural diagram.png>)
+[Architectural Diagram](./readme_images/1.%20Architectural%20diagram.png)
 
 
-Project Steps
+## Project Steps
 
 Github Repository and Modules
 
