@@ -15,17 +15,17 @@ Github Repository and Modules
 
 First a Github repository was created for the project where the final, working code was regularly pushed to. After this modules were created in Terraform one by one, so that each module could be tested seperately until it worked, before moving on to the next module. This way any errors were easier to detect and fix. Most modules include main.tf, variables.tf, and outputs.tf to ensure modularity, reusability, and clarity in Terraform configurations. Main.tf contains the core infrastructure resources and logic of the module. It defines what resources are created, such as EC2 instances, VPCs, or security groups. Variables.tf is used to define the input variables for the module, allowing users to customize the module’s behavior and make it reusable across different environments by passing different values for these variables. Output.tf defines the output values of the module, which can be referenced by other parts of the infrastructure. These outputs provide useful information, such as instance IPs or resource IDs, for use elsewhere in the Terraform configuration.
 
-GitIgnore File
+## GitIgnore File
 
  A .gitignore file was added outside the modules. This file is used to specify intentionally untracked files that Git should ignore once the "terraform apply" command is executed, or that Git should not tracke or include in the repository, either because they are not necessary for version control or because they may contain sensitive or environment-specific data.
 
 
-VPC
+## VPC
 
 The first module created was the Virtual Private Cloud (VPC) is a logically isolated section of the AWS cloud where one can define their own virtual network, including IP address ranges, subnets, route tables, and network gateways. A VPC was created in Terraform for this project to manage resource isolation and traffic flow. Both public and private subnets were set up, each associated with dedicated route tables: the public subnets routed traffic to an Internet Gateway (IGW) for external access, while private subnets directed outbound internet traffic through a NAT Gateway to maintain security. An Elastic IP was assigned to the NAT Gateway for consistent connectivity. Public subnets were used for resources requiring internet exposure, such as load balancers, while private subnets hosted sensitive resources like databases. This architecture was designed to ensure a secure and scalable environment, adhering to best practices for network segmentation and resource accessibility.
 
 
-HashiCorp Vault
+## HashiCorp Vault
 
 The second module to be created was Vault, to securely manage secrets and sensitive data. The Vault infrastructure was implemented as a standalone module to ensure reusability, and maintainability. By isolating Vault into its own Terraform module, it becomes easier to manage and scale independently of other resources. This approach allows the module to be reused across different environments e.g., development, staging, production with minimal changes by simply modifying input variables. Additionally, separating Vault into a standalone module enhances security and clarity, as it encapsulates all the configurations, policies, and dependencies specific to Vault. This structure reduces the risk of unintended changes affecting unrelated components and aligns with Terraform best practices by promoting a clean and organized codebase. It also simplifies integration with other infrastructure by exposing only the necessary outputs, such as the Vault server's endpoint or DNS name, while keeping its internal configurations abstracted.
 
@@ -36,7 +36,7 @@ A KMS key was set up for encryption to enhance security, and Route 53 DNS record
 Additionally, a dynamically generated key pair ensured secure access to the instance, with the private key securely stored locally. This infrastructure setup provided a robust, scalable, and secure environment for managing secrets with Vault while adhering to best practices for security and automation.
 
 
-Create_s3bucket.sh and Delete_s3bucket.sh Scripts
+## Create_s3bucket.sh and Delete_s3bucket.sh Scripts
 
 The create_s3bucket.sh and delete_s3bucket.sh scripts were designed as standalone scripts to simplify the creation and deletion of the S3 bucket and DynamoDB table required for Terraform's remote state management. This modular approach ensures flexibility, enabling these resources to be managed independently when setting up or tearing down infrastructure.
 
@@ -47,12 +47,12 @@ delete_s3bucket.sh
 The delete_s3bucket.sh script ensures clean removal of the remote state resources when they are no longer needed. It first deletes all objects within the S3 bucket to avoid errors during bucket deletion. The script then deletes the S3 bucket itself, followed by the DynamoDB table. This sequence ensures a safe and thorough cleanup, preventing leftover resources that could incur costs or cause conflicts in future deployments.
 
 
-KeyPair
+## KeyPair
 
 The keypair module was created to securely generate and manage SSH key pairs for accessing EC2 instances. An RSA private key with 4096-bit encryption was created and stored locally with restricted permissions. The corresponding public key was uploaded to AWS as an EC2 key pair, enabling secure SSH access to instances. This module was integrated into the overall infrastructure to ensure consistent key management, improve security by automating key creation, and streamline the process of accessing EC2 instances without manual intervention.
 
 
-Bastion Host
+## Bastion Host
 
 The bastion-host module was created to provision a secure EC2 instance for managing access to private resources within a VPC. The aws_instance resource was configured to launch a Red Hat-based EC2 instance of type t2.micro in a specified subnet with a public IP address. The instance used a specified key pair for SSH access and was associated with a security group that allowed SSH access on port 22 from any IP address. The instance was also tagged with a name for easy identification.
 
@@ -61,7 +61,7 @@ A corresponding aws_security_group resource was created for the bastion host, wh
 This setup was added to provide a secure and controlled way to access instances in private subnets, ensuring proper isolation and reducing exposure to the public internet.
 
 
-Sonarqube
+## Sonarqube
 
 The EC2 Instance for SonarQube module was created to provision an EC2 instance that hosted a SonarQube application. The aws_instance resource was configured with an Ubuntu AMI and a specified instance type. The instance was placed in a designated subnet and associated with a security group that allowed inbound SSH access for management and HTTP/HTTPS access for the SonarQube application. It also used a public key for SSH access and was initialized with custom user data for SonarQube configuration.
 
@@ -74,7 +74,7 @@ Additionally, a Route 53 DNS record was created for SonarQube by using the aws_r
 This setup was added to provide a fully functional, scalable SonarQube deployment, accessible via a secure, load-balanced endpoint.
 
 
-Nexus
+## Nexus
 
 The Nexus server module was created to provision an EC2 instance to run the Nexus repository manager. The aws_instance resource was configured with a Red Hat-based AMI and an instance type specified in the variables. It was placed in a designated subnet, associated with a security group that allowed inbound traffic for Nexus on ports 8081 (HTTP), 8085, and 443 (HTTPS), and SSH access on port 22. The instance also used a public key for SSH access and was initialized with custom user data for Nexus configuration.
 
@@ -87,7 +87,7 @@ Additionally, a Route 53 DNS record was created for Nexus using the aws_route53_
 This setup was added to provide a secure and scalable Nexus repository, accessible via a secure, load-balanced endpoint for artifact management.
 
 
-Jenkins
+## Jenkins
 
 The Jenkins module was created, with the configuration designed to set up a fully functional Jenkins server on AWS. The process began with the creation of an EC2 instance using a Red Hat-based AMI, specified instance type, subnet ID, and a public key for SSH access. This instance was associated with a security group, jenkins_sg, which allowed inbound traffic on the necessary ports: 8080 for HTTP, 443 for HTTPS, and 22 for SSH. The security group provided a controlled network environment to manage the access to the Jenkins server.
 
@@ -112,7 +112,7 @@ Finally, the script set the hostname of the EC2 instance to "jenkins," making it
 By using this userdata script in conjunction with Terraform, the Jenkins instance setup became a seamless, automated process, reducing the need for manual configuration and ensuring consistency across different environments.
 
 
-Ansible
+## Ansible
 
 Ansible was integrated into the infrastructure by provisioning and configuring a EC2 instance as an Ansible server. The process began with the creation of an EC2 instance using the aws_instance resource. This instance, based on a Red Hat AMI (ami_redhat), was configured with a t2.medium size and associated with a security group that allowed inbound SSH traffic on port 22.
 
@@ -171,7 +171,7 @@ For production, additional resources were configured, such as an Application Loa
 These combined resources ensure that the applications in both staging and production environments can be deployed efficiently, scaled based on load, and monitored for optimal performance.
 
 
-RDS
+## RDS
 
 The RDS module was used to provision an RDS (Relational Database Service) instance within AWS. It created several key components, including the DB subnet group, RDS instance, and RDS security group, to ensure that a fully functional database environment was set up in the AWS infrastructure.
 
@@ -187,7 +187,7 @@ A security group (rds-sg) was created specifically for the RDS instance, allowin
 These components, in combination, ensured that a MySQL-based RDS instance was correctly set up, securely accessible, and able to handle the database needs of the application.
 
 
-Spinning up the infrastructure 
+## Spinning up the infrastructure 
 
 First, the "create_s3bucket.sh" script was ran with the command "sh create_s3bucket.sh". This executed the script creating the S3 bucket. 
 
@@ -209,7 +209,7 @@ Next, the Vault server is exited with the "cd .." command and while in the main 
 ![Console](./readme_images/8.%20checking%20from%20aws%20if%20the%20instances%20have%20successfully%20spun%20up.png)
 
 
-Errors faced and their fixes
+## Errors faced and their fixes
 
 When the command "terraform apply" was executed, the Vault server destroyed itself. After inspecting the code, it was found that there was a extra / sign after vault, which most likely was misinterpreted as a wildcard or incorrect path. after taking out the / sign, the server stopped destroying itself.
 
@@ -228,7 +228,7 @@ There was an error because while trying to run the docker build command, there w
 By running the command sudo chmod 777 /var/run/docker.sock, everyone was permission to interact with the Docker daemon. This removes the permission issue and allows the user to run Docker commands.
 
 
-Configuring the pipeline to deploy the application into the infrastructure
+## Configuring the pipeline to deploy the application into the infrastructure
 
 First the nessecary plugins -Slack Notification, OWASP Dependency-Check, Sonarqube Scanner, SSH Agent, Docker, Maven Integrtion, Docker Commons and HTML Publisher were installed through the Jenkins dashboard. The OWASP Dependency-Check plugin was added to incorporate security into the process by scanning project dependencies for known vulnerabilities. Similarly, the SonarQube Scanner plugin was installed to maintain high code quality standards. By integrating with SonarQube, this tool performs code analysis, identifies bugs and vulnerabilities, and enforces best practices across the codebase.
 
