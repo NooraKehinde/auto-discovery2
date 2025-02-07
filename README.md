@@ -258,6 +258,7 @@ Next the plugins were configured, which were Java, Maven, Slack, Dependency-Chec
 ![Slack](./readme_images/16.%20Slack.png)
 
 Next the Nexus repository was created on the Nexus interface for the Maven artifact and another one for the Docker image.
+
 ![Nexus](./readme_images/17.%20created%20the%20nexus%20repo%20on%20nexus.png)
 
 ![Docker](./readme_images/18.%20created%20the%20docker%20repo%20on%20nexus.png)
@@ -266,8 +267,8 @@ Next the Nexus repository was created on the Nexus interface for the Maven artif
 Next step was to configure the credentials for Jenkins to be able to login to our repositories. These credentials were for AWS, Git, Nvd, Sonarqube, Slack, Nexus, Ansible IP and Bastion IP.
 ![Credentials](./readme_images/19.%20adding%20credentials.png)
 
-The final step was to create the pipeline
-![Pipeline](./readme_images/20.%20setting%20up%20the%20pipeline.png), which ran succesfully. ![alt text](./readme_images/21.%20pipeline%20ran%20succesfully.png) ![ ](./readme_images/22.%20pipeline.png) The stage and production URL's for noektech.com worked and owners were possible to add to the database ![alt text](./readme_images/23.%20able%20to%20add%20owners.png), ![alt text](./readme_images/24.%20stage.png), ![alt text](./readme_images/25.prod.png)
+The final step was to create the pipeline, which ran successfully
+![Pipeline](./readme_images/20.%20setting%20up%20the%20pipeline.png) ![alt text](./readme_images/21.%20pipeline%20ran%20succesfully.png) !(./readme_images/22.%20pipeline.png) The stage and production URL's for noektech.com worked and owners were possible to add to the database ![alt text](./readme_images/23.%20able%20to%20add%20owners.png) ![alt text](./readme_images/24.%20stage.png) ![alt text](./readme_images/25.prod.png)
 
 
 
