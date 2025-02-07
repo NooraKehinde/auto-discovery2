@@ -191,22 +191,22 @@ Spinning up the infrastructure
 
 First, the "create_s3bucket.sh" script was ran with the command "sh create_s3bucket.sh". This executed the script creating the S3 bucket. 
 
-![S3bucket](<2. creating s3 bucket.png>)
+![S3bucket](./readme_images/2.%20creating%20s3%20bucket.png)
 
 The execution was confirmed by checking the AWS console. After this the Vault server was spun up by cd:ing into the Vault server and running the "terraform init" and "terraform apply" commands. 
 
-![Vault](<3. initializing vault.png>)
+![Vault](./readme_images/3.%20initializing%20vault.png)
 
 It is important to wait for about 5 minutes after this before ssh:ing into Vault as it takes a bit of time to work. After this the "ls" command was ran and the output file was checked with the cat command and the token is fetched from that file, using it in the vault browser to log in. Then the token was pasted in the root provider.tf file in the Token section. After this the AWS console was checked to see if the Vault was succesfully created. Then the Vault server needs to be checked through the browser to see if the secrets have been successfully stored in the server. 
 
-![VaultToken](<4. fetching the token from vault.png>)
-![VaultSecret](<5. vault secret is in the instance.png>)
+![VaultToken](./readme_images/4.%20fetching%20the%20token%20from%20vault.png)
+![VaultSecret](./readme_images/5.%20vault%20secret%20is%20in%20the%20instance.png)
 
 Next, the Vault server is exited with the "cd .." command and while in the main directory, the commands "terraform init" and "terraform apply" are being ran, which were succesfully and created the IP addresses for all instances. This was confirmed also through the AWS console.
 
-![Init](<6. initializing the rest of the environment.png>)
-![Apply](<7. succesfully applied.png>)
-![Console](<8. checking from aws if the instances have successfully spun up.png>)
+![Init](./readme_images/6.%20initializing%20the%20rest%20of%20the%20environment.png)
+![Apply](./readme_images/7.%20succesfully%20applied.png)
+![Console](./readme_images/8.%20checking%20from%20aws%20if%20the%20instances%20have%20successfully%20spun%20up.png)
 
 
 Errors faced and their fixes
@@ -219,11 +219,11 @@ Vault server was not storing the secret because the server was ssh:d into too fa
 
 When spinning up the pipeline, the process was stuck at Nexus, which was because the code did not have port 8085 included. After correcting the code, the pipeline went through.
 
-![Error1](<9.nexus problem - added 8085 and the pipeline went through.png>)
+![Error1](./readme_images/9.nexus%20problem%20-%20added%208085%20and%20the%20pipeline%20went%20through.png)
 
 There was an error because while trying to run the docker build command, there was an issue with permissions to access Docker. Docker requires elevated permissions because it interacts with the system at a low level (e.g., creating containers, modifying system resources).
 
-![Error2](<10. docker permission error.png>)
+![Error2](./readme_images/10.%20docker%20permission%20error.png)
 
 By running the command sudo chmod 777 /var/run/docker.sock, everyone was permission to interact with the Docker daemon. This removes the permission issue and allows the user to run Docker commands.
 
@@ -238,27 +238,27 @@ Since the application relies on Maven, the Maven Integration plugin was included
 
 Together, these plugins enhance Jenkins by adding critical capabilities for security, code quality, containerization, and reporting. This setup ensures a robust, automated pipeline that supports the development and deployment of high-quality applications while fostering collaboration and transparency within the team.
 
-![Plugins](<11. succesfully dowloaded the nessecary plugins.png>)
+![Plugins](./readme_images/11.%20succesfully%20dowloaded%20the%20nessecary%20plugins.png)
 
 Next the plugins were configured, which were Java, Maven, Slack, Dependency-Check and Sonarqube where the token (which provides a secure way to authenticate Jenkins to SonarQube) and webhook (which allows sonarqube to notify jenkins about if the scan was a fail or success) were created.
 
-![JDK](<12. installing jdk.png>)
-![Sonarqube](<13. configuring sonarqube on jenkins.png>)
-![Token](<14. created a token on sonarqube.png>)
-![Webhook](<15.webhook creation process.png>)
-![Webhook2](<15. created a webhook.png>)
-![Slack](<16. Slack.png>)
+![JDK](./readme_images/12.%20installing%20jdk.png)
+![Sonarqube](./readme_images/13.%20configuring%20sonarqube%20on%20jenkins.png)
+![Token](./readme_images/14.%20created%20a%20token%20on%20sonarqube.png)
+![Webhook](./readme_images/15.webhook%20creation%20process.png)
+![Webhook2](./readme_images/15.%20created%20a%20webhook.png)
+![Slack](./readme_images/16.%20Slack.png)
 
 Next the Nexus repository was created on the Nexus interface for the Maven artifact and another one for the Docker image.
-![Nexus](<17. created the nexus repo on nexus.png>)
-![Docker](<18. created the docker repo on nexus.png>)
+![Nexus](./readme_images/17.%20created%20the%20nexus%20repo%20on%20nexus.png)
+![Docker](./readme_images/18.%20created%20the%20docker%20repo%20on%20nexus.png)
 
 
 Next step was to configure the credentials for Jenkins to be able to login to our repositories. These credentials were for AWS, Git, Nvd, Sonarqube, Slack, Nexus, Ansible IP and Bastion IP.
-![Credentials](<19. adding credentials.png>)
+![Credentials](./readme_images/19.%20adding%20credentials.png)
 
 The final step was to create the pipeline
-![Pipeline](<20. setting up the pipeline.png>), which ran succesfully. ![alt text](<21. pipeline ran succesfully.png>) ![ ](<22. pipeline.png>) The stage and production URL's for noektech.com worked and owners were possible to add to the database ![alt text](<23. able to add owners.png>), ![alt text](<24. stage.png>), ![alt text](25.prod.png)
+![Pipeline](./readme_images/20.%20setting%20up%20the%20pipeline.png), which ran succesfully. ![alt text](./readme_images/21.%20pipeline%20ran%20succesfully.png) ![ ](./readme_images/22.%20pipeline.png) The stage and production URL's for noektech.com worked and owners were possible to add to the database ![alt text](./readme_images/23.%20able%20to%20add%20owners.png), ![alt text](./readme_images/24.%20stage.png), ![alt text](./readme_images/25.prod.png)
 
 
 
