@@ -268,7 +268,7 @@ Next step was to configure the credentials for Jenkins to be able to login to ou
 ![Credentials](./readme_images/19.%20adding%20credentials.png)
 
 The final step was to create the pipeline, which ran successfully
-![Pipeline](./readme_images/20.%20setting%20up%20the%20pipeline.png) ![alt text](./readme_images/21.%20pipeline%20ran%20succesfully.png) !(./readme_images/22.%20pipeline.png) The stage and production URL's for noektech.com worked and owners were possible to add to the database ![alt text](./readme_images/23.%20able%20to%20add%20owners.png) ![alt text](./readme_images/24.%20stage.png) ![alt text](./readme_images/25.prod.png)
+![Pipeline](./readme_images/20.%20setting%20up%20the%20pipeline.png) ![alt text](./readme_images/21.%20pipeline%20ran%20succesfully.png) ![alt text](./readme_images/22.%20pipeline.png) The stage and production URL's for noektech.com worked and owners were possible to add to the database ![alt text](./readme_images/23.%20able%20to%20add%20owners.png) ![alt text](./readme_images/24.%20stage.png) ![alt text](./readme_images/25.prod.png)
 
 
 
