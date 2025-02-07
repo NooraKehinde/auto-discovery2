@@ -11,7 +11,7 @@ Architectural Diagram
 
 ## Project Steps
 
-Github Repository and Modules
+## Github Repository and Modules
 
 First a Github repository was created for the project where the final, working code was regularly pushed to. After this modules were created in Terraform one by one, so that each module could be tested seperately until it worked, before moving on to the next module. This way any errors were easier to detect and fix. Most modules include main.tf, variables.tf, and outputs.tf to ensure modularity, reusability, and clarity in Terraform configurations. Main.tf contains the core infrastructure resources and logic of the module. It defines what resources are created, such as EC2 instances, VPCs, or security groups. Variables.tf is used to define the input variables for the module, allowing users to customize the module’s behavior and make it reusable across different environments by passing different values for these variables. Output.tf defines the output values of the module, which can be referenced by other parts of the infrastructure. These outputs provide useful information, such as instance IPs or resource IDs, for use elsewhere in the Terraform configuration.
 
@@ -162,7 +162,7 @@ A new Docker container was then created and started, mapping port 8080 of the ho
 
 Finally, the playbook cleaned up old Docker images to free up space. This automation ensured that the application container was consistently deployed, running, and healthy in the production environment.
 
-Stage and Production Auto-Scaling Groups
+## Stage and Production Auto-Scaling Groups
 
 The stage and prouction Auto-Scaling Groups were created to automate the deployment, scaling, and management of Docker containers for the staging and production environments. These ASGs are linked to their respective launch templates, which define the instance configurations, including the AMI, instance type, security groups, and user data for Docker setup. The ASGs also use dynamic scaling policies based on CPU utilization to adjust the number of instances according to demand.
 
@@ -200,12 +200,15 @@ The execution was confirmed by checking the AWS console. After this the Vault se
 It is important to wait for about 5 minutes after this before ssh:ing into Vault as it takes a bit of time to work. After this the "ls" command was ran and the output file was checked with the cat command and the token is fetched from that file, using it in the vault browser to log in. Then the token was pasted in the root provider.tf file in the Token section. After this the AWS console was checked to see if the Vault was succesfully created. Then the Vault server needs to be checked through the browser to see if the secrets have been successfully stored in the server. 
 
 ![VaultToken](./readme_images/4.%20fetching%20the%20token%20from%20vault.png)
+
 ![VaultSecret](./readme_images/5.%20vault%20secret%20is%20in%20the%20instance.png)
 
 Next, the Vault server is exited with the "cd .." command and while in the main directory, the commands "terraform init" and "terraform apply" are being ran, which were succesfully and created the IP addresses for all instances. This was confirmed also through the AWS console.
 
 ![Init](./readme_images/6.%20initializing%20the%20rest%20of%20the%20environment.png)
+
 ![Apply](./readme_images/7.%20succesfully%20applied.png)
+
 ![Console](./readme_images/8.%20checking%20from%20aws%20if%20the%20instances%20have%20successfully%20spun%20up.png)
 
 
@@ -243,14 +246,20 @@ Together, these plugins enhance Jenkins by adding critical capabilities for secu
 Next the plugins were configured, which were Java, Maven, Slack, Dependency-Check and Sonarqube where the token (which provides a secure way to authenticate Jenkins to SonarQube) and webhook (which allows sonarqube to notify jenkins about if the scan was a fail or success) were created.
 
 ![JDK](./readme_images/12.%20installing%20jdk.png)
+
 ![Sonarqube](./readme_images/13.%20configuring%20sonarqube%20on%20jenkins.png)
+
 ![Token](./readme_images/14.%20created%20a%20token%20on%20sonarqube.png)
+
 ![Webhook](./readme_images/15.webhook%20creation%20process.png)
+
 ![Webhook2](./readme_images/15.%20created%20a%20webhook.png)
+
 ![Slack](./readme_images/16.%20Slack.png)
 
 Next the Nexus repository was created on the Nexus interface for the Maven artifact and another one for the Docker image.
 ![Nexus](./readme_images/17.%20created%20the%20nexus%20repo%20on%20nexus.png)
+
 ![Docker](./readme_images/18.%20created%20the%20docker%20repo%20on%20nexus.png)
 
 
